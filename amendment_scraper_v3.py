@@ -34,20 +34,19 @@ while(session <= 87):
                         if(bill != "HB" and bill != "SB"):
                             print("Waiting...")
                             break
-                        a_url = "https://capitol.texas.gov/BillLookup/Amendments.aspx?LegSess=" + str(
-                            session) + "R&Bill=" + bill + str(n)
+                        a_url = "https://capitol.texas.gov/BillLookup/Amendments.aspx?LegSess=" + str(session) + "R&Bill=" + bill + str(n)
                         a_u = rq.get(a_url, timeout=75)
                         a_doc = lh.fromstring(a_u.content)
                         amendment = a_doc.xpath('//html//body//div[1]//div[4]//form//span')
                         print("Working on " + bill + " " + str(n) + "...")
                         if (len(amendment) > 0):
                             writer.writerow((bill + " " + str(n),
-                                             amendment[0].text_content().split(" ")[3]))  # if amendments exist, print the number
+                                             amendment[0].text_content().split(" ")[3]))  
                         else:
-                            writer.writerow((bill + " " + str(n), "0"))  # else, print 0
+                            writer.writerow((bill + " " + str(n), "0"))   
 
                     except:
-                        time.sleep(20)  #ascertain the total number of bills
+                        time.sleep(20)   
                         continue
                     break
 
